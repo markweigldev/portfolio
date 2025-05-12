@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Weigl | Software Engineer</title>
+    <!-- Updated Font Awesome with all icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Base Styles */
+        :root {
+            --dark-blue: #1a2234;
+            --bright-blue: #2196f3;
+            --light-gray: #e9ecef;
+            --dark-gray: #343a40;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--bright-blue);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--white);
+        }
+
+        .underline {
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--bright-blue);
+            margin: 10px auto 40px;
+        }
+
+        /* Updated Button Styles for Modern Look */
+        .btn {
+            display: inline-block;
+            background-color: var(--bright-blue);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px; /* Rounded pill shape */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3); /* Subtle shadow for depth */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(33, 150, 243, 0.5);
+            background-color: #0d8aee; /* Slightly darker blue on hover */
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Header & Navigation */
+        .header {
+            background-color: var(--dark-blue);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 5px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .navbar::before,
+        .navbar::after {
+            display: none !important;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .logo::before,
+        .logo::after {
+            display: none !important;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li::before {
+            display: none !important;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--bright-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            color: white;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        /* About Section */
+        .about {
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: rgba(26, 34, 52, 0.8);
+            border-radius: 16px; /* Rounded corners for cards to match button aesthetic */
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .project-tag {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 50px; /* Pill shape for tags */
+        }
+
+        .project-description {
+            margin-bottom: 20px;
+        }
+
+        /* Skills Section */
+        .skills-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skills-category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-decoration: underline;
+            text-decoration-color: var(--bright-blue);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 5px;
+            display: inline-block;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-arrow {
+            color: var(--bright-blue);
+            margin-right: 10px;
+        }
+
+        /* Connect Section */
+        .connect-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        
+        .contact-details, .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(32, 42, 60, 0.8);
+            border-radius: 16px; /* Rounded corners to match button aesthetic */
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .panel-title {
+            color: var(--bright-blue);
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Contact Details */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(33, 150, 243, 0.2);
+            border-radius: 50%; /* Circular icon containers */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-label {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .contact-value {
+            color: white;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+        
+        /* Social Media Buttons - Updated for modern look */
+        .social-button {
+            display: block;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 50px; /* Rounded pill shape to match other buttons */
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-button:hover {
+            transform: translateY(-3px);
+            background-color: #0d8aee; /* Match main button hover */
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Contact Form - Updated for modern look */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: rgba(38, 50, 70, 0.6);
+            border: 1px solid rgba(60, 72, 88, 0.3);
+            border-radius: 50px; /* Rounded input fields */
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--bright-blue);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+            border-radius: 24px; /* Slightly less rounded for textareas */
+        }
+        
+        .form-button {
+            background-color: var(--bright-blue);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px; /* Rounded pill shape */
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+        }
+        
+        .form-button:hover {
+            background-color: #0d8aee;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(33, 150, 243, 0.5);
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                position: relative;
+                z-index: 1000;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--dark-blue);
+                padding: 20px 0;
+                gap: 15px;
+                text-align: center;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .connect-grid {
+                flex-direction: column;
+            }
+
+            /* Make buttons more finger-friendly on mobile */
+            .btn, .form-button, .social-button {
+                padding: 14px 28px;
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Mark Weigl</a>
+                <button class="menu-toggle">
+                    ☰
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#connect">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero" style="padding-bottom: 30px; min-height: auto; padding-top: 60px;">
+        <div class="container">
+            <div class="hero-content" style="margin: 0 auto; text-align: center; padding-top: 40px;">
+                <h1 class="hero-title">Mark Weigl</h1>
+                <h2 class="hero-subtitle" style="margin-bottom: 30px;">Full-Stack Software Engineer</h2>
+                <a href="#projects" class="btn" style="margin-bottom: 20px;">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about" style="padding-top: 30px; padding-bottom: 30px;">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <span class="underline"></span>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a passionate Full-Stack Software Engineer with experience building dynamic, responsive web applications with a strong focus on leveraging AI to enhance development. I use modern AI tools to boost productivity, generate and optimize code, debug efficiently, and accelerate app development workflows.</p>
+                    <p>I'm currently seeking opportunities in Full-Stack, Front-End, or Back-End Software Engineering, with an interest in AI development. Let's solve problems together!</p>
+                </div>
+                <a href="#connect" class="btn" style="margin-bottom: 20px;">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects" style="padding-top: 30px; padding-bottom: 30px;">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <span class="underline"></span>
+            
+            <!-- Projects Coming Soon Message -->
+            <div class="projects-coming-soon" style="text-align: center; padding: 60px 20px; background-color: rgba(32, 42, 60, 0.8); border-radius: 16px; margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; font-size: 1.8rem;">Projects Coming Soon</h3>
+                <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">I'm currently working on exciting projects to showcase here. Check back soon to see my latest work!</p>
+            </div>
+            
+            <!-- 
+            PROJECTS PLACEHOLDER CODE - Uncomment and modify when ready to add projects
+            
+            <p class="section-subtitle">Here is some of my recent work</p>
+            <div class="projects-grid">
+                <!-- Project 1 --
+                <div class="project-card">
+                    <div class="project-image">
+                        600 × 400
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Name</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML</span>
+                            <span class="project-tag">CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                        </div>
+                        <p class="project-description">Short description of the project. What it does and the technologies used.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 --
+                <div class="project-card">
+                    <div class="project-image">
+                        600 × 400
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Name</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                        </div>
+                        <p class="project-description">Short description of the project. What it does and the technologies used.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 --
+                <div class="project-card">
+                    <div class="project-image">
+                        600 × 400
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Name</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Vue.js</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">Tailwind CSS</span>
+                        </div>
+                        <p class="project-description">Short description of the project. What it does and the technologies used.</p>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 (Future) --
+                <div class="project-card">
+                    <div class="project-image">
+                        600 × 400
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Future Project</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Coming Soon</span>
+                        </div>
+                        <p class="project-description">This section is reserved for future projects. Stay tuned!</p>
+                        <a href="#" class="btn" style="margin-bottom: 20px;">View Project</a>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills" style="padding-top: 30px; padding-bottom: 30px;">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <span class="underline"></span>
+            <p class="section-subtitle">Technologies I've been working with</p>
+            <div class="skills-categories">
+                <!-- Frontend Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">Front-End</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>ReactJS</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>HTML</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>CSS</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Bootstrap</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>jQuery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">Back-End</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">Databases</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technologies -->
+                <div class="skills-category">
+                    <h3 class="category-title">Technologies</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Git</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">AI</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Prompt Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">Soft Skills</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Analytical Thinking</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Problem-Solving</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Adaptability</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Teamwork</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-arrow">→</span>
+                            <span>Effective Communication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section id="connect" class="section" style="padding-top: 30px;">
+        <div class="container">
+            <h2 class="section-title">Connect</h2>
+            <span class="underline"></span>
+            <p class="section-subtitle">Let's work together on your next project</p>
+            
+            <div class="connect-grid">
+                <!-- Contact Details -->
+                <div class="contact-details">
+                    <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                        <img src="/images/markphoto.jpg" alt="Mark Weigl" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid var(--bright-blue);">
+                        <h3 class="panel-title" style="margin-bottom: 0;">Contact Details</h3>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4 class="contact-label">Email</h4>
+                            <a href="mailto:mark@markweigl.dev" class="contact-value">mark@markweigl.dev</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Location -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #ff4d6d;">📍</div>
+                        <div>
+                            <h4 class="contact-label">Location</h4>
+                            <span class="contact-value" style="color: white; text-decoration: none;">Twin Cities, MN</span>
+                        </div>
+                    </div>
+                    
+                    <!-- GitHub - Left Aligned -->
+                    <div style="margin-top: 30px; margin-bottom: 25px;">
+                        <h4 class="contact-label" style="margin-bottom: 15px;">My GitHub</h4>
+                        <a href="https://www.github.com/markweigldev" target="_blank" class="social-button" style="display: inline-block; width: auto; min-width: 100px;" title="GitHub">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Media Links - Now on the right side -->
+                <div class="contact-details">
+                    <h3 class="panel-title" style="margin-bottom: 30px;">Connect With Me</h3>
+                    
+                    <!-- Social Media Grid -->
+                    <div>
+                        <h4 class="contact-label" style="margin-bottom: 20px;">Social Media</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                            <!-- Platform Buttons -->
+                            <a href="https://www.linkedin.com/in/markweigl/" target="_blank" class="social-button" title="LinkedIn">
+                                LinkedIn
+                            </a>
+                            <a href="https://x.com/markweigldev" target="_blank" class="social-button" title="X (Twitter)">
+                                X
+                            </a>
+                            <a href="https://bsky.app/profile/markweigldev.bsky.social" target="_blank" class="social-button" title="Bluesky">
+                                Bluesky
+                            </a>
+                            <a href="https://www.threads.net/@markweigldev" target="_blank" class="social-button" title="Threads">
+                                Threads
+                            </a>
+                            <a href="https://hachyderm.io/@markweigldev" target="_blank" class="social-button" title="Mastodon">
+                                Mastodon
+                            </a>
+                            <a href="https://www.instagram.com/markweigldev" target="_blank" class="social-button" title="Instagram">
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Creation Platforms -->
+                    <div style="margin-top: 30px;">
+                        <h4 class="contact-label" style="margin-bottom: 20px;">Content Platforms</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                            <a href="https://www.youtube.com/@markweigldev" target="_blank" class="social-button" title="YouTube">
+                                YouTube
+                            </a>
+                            <a href="https://www.twitch.tv/markweigldev" target="_blank" class="social-button" title="Twitch">
+                                Twitch
+                            </a>
+                            <a href="https://www.tiktok.com/@markweigldev" target="_blank" class="social-button" title="TikTok">
+                                TikTok
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="font-weight: bold; margin-bottom: 10px; font-size: 1.5rem;">Mark Weigl | Software Engineer</p>
+            <p>&copy; 2025 Mark Weigl. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle with Animation
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Form Submission Handler - Removed since form was removed
+        // const contactForm = document.getElementById('contact-form');
+        // if (contactForm) {
+        //     contactForm.addEventListener('submit', function(e) {
+        //         e.preventDefault();
+        //         alert('Thank you for your message! This is a demo form, so no message was actually sent.');
+        //         contactForm.reset();
+        //     });
+        // }
+    </script>
+</body>
+</html>
